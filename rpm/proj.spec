@@ -9,7 +9,9 @@ URL: http://proj4.org
 Source: http://download.osgeo.org/proj/proj-4.9.3.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
-BuildRequires: gcc-c++
+%define SourceToGet http://download.osgeo.org/proj/proj-%{version}.tar.gz
+
+BuildRequires: gcc-c++ curl tar
 
 %description
 proj.4 is a standard UNIX filter function which converts geographic longitude and latitude coordinates into cartesian coordinates (and vice versa), and it is a C API for software developers to include coordinate transformation in their own software.
@@ -23,7 +25,7 @@ Requires: %{name} = %{version}
 proj.4 is a standard UNIX filter function which converts geographic coordinates. Development package
 
 %package tools
-Summary: Kyoto Cabinet tools
+Summary: proj.4 tools
 Group: Libraries/Databases
 Requires: %{name} = %{version}
 
@@ -31,6 +33,10 @@ Requires: %{name} = %{version}
 proj.4 is a standard UNIX filter function which converts geographic coordinates. Tools package
 
 %prep
+echo "HERE WE GO"
+curl -O %{SourceToGet}
+tar zxvf proj-%{version}.tar.gz
+
 %setup
 
 %build
