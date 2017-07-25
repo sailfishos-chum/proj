@@ -6,7 +6,8 @@ License: MIT
 Group: Libraries/Geo
 URL: http://proj4.org
 
-Source: http://download.osgeo.org/proj/proj-4.9.3.tar.gz
+#Source: http://download.osgeo.org/proj/proj-4.9.3.tar.gz
+Source: 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %define SourceToGet http://download.osgeo.org/proj/proj-%{version}.tar.gz
