@@ -1,4 +1,4 @@
-Summary: proj.4 is a standard UNIX filter function which converts geographic coordinates
+Summary: Standard UNIX filter function which converts geographic coordinates
 Name: proj
 Version: 4.9.3
 Release: 1%{?dist}
@@ -7,11 +7,10 @@ Group: Libraries/Geo
 URL: http://proj4.org
 
 #Source: http://download.osgeo.org/proj/proj-4.9.3.tar.gz
+Source0: %{name}-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
-%define SourceToGet http://download.osgeo.org/proj/proj-%{version}.tar.gz
-
-BuildRequires: gcc-c++ curl tar
+BuildRequires: gcc-c++ libtool
 
 %description
 proj.4 is a standard UNIX filter function which converts geographic longitude and latitude coordinates into cartesian coordinates (and vice versa), and it is a C API for software developers to include coordinate transformation in their own software.
@@ -33,14 +32,12 @@ Requires: %{name} = %{version}
 proj.4 is a standard UNIX filter function which converts geographic coordinates. Tools package
 
 %prep
-echo "HERE WE GO"
-curl -O %{SourceToGet}
-tar zxvf proj-%{version}.tar.gz
 
-%setup
+%setup -q -n %{name}-%{version}/proj.4
 
 %build
 %{__make} clean || true
+./autogen.sh
 
 CFLAGS="$CFLAGS -fPIC"
 CXXFLAGS="$CXXFLAGS -fPIC"
@@ -57,7 +54,9 @@ CXXFLAGS="$CXXFLAGS -fPIC"
 
 %pre
 
-%post
+%post -n proj -p /sbin/ldconfig
+
+%postun -n proj -p /sbin/ldconfig
 
 %files
 %files
