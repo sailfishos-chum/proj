@@ -59,7 +59,6 @@ CXXFLAGS="$CXXFLAGS -fPIC"
 %postun -n proj -p /sbin/ldconfig
 
 %files
-%files
 %defattr(-, root, root, 0755)
 %{_libdir}/libproj.so
 %{_libdir}/libproj.so.12
@@ -92,5 +91,5 @@ CXXFLAGS="$CXXFLAGS -fPIC"
 %{_mandir}/man3/pj_init.3.gz
 
 %changelog
-* Thu Apr 10 2017 rinigus <rinigus.git@gmail.com> - 1.2.76
+* Mon Apr 10 2017 rinigus <rinigus.git@gmail.com> - 1.2.76
 - initial packaging release for SFOS

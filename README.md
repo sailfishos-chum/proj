@@ -3,15 +3,13 @@ RPM packaging of PROJ.4 for Sailfish
 
 ## Howto build
 
-* Clone this repository
+* Clone this repository with `git clone --recurse-submodules`
 
-* cd into it and run `./download.sh`
-
-* cd into source directory
+* cd into root directory of this repository
 
 * build by running 
 ```
-export SFARCH=armv7hl; mb2 -t SailfishOS-$SFARCH -s ../rpm/proj.spec build
+export SFARCH=armv7hl; mb2 -t SailfishOS-$SFARCH -s rpm/proj.spec build
 ```
 in MER SDK. 
 
