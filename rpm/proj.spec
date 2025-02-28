@@ -23,6 +23,7 @@ own software.
 %package devel
 Summary: proj.4 development headers and static library
 Group: Development/Libraries
+Provides: %{name}-static = %{version}
 Requires: %{name} = %{version}
 
 %description devel
