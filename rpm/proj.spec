@@ -1,5 +1,8 @@
-Summary: Standard UNIX filter function which converts geographic coordinates
 Name: proj
+
+%define keepstatic 1
+
+Summary: Standard UNIX filter function which converts geographic coordinates
 Version: 4.9.3
 Release: 1%{?dist}
 License: MIT
@@ -8,12 +11,14 @@ URL: http://proj4.org
 
 #Source: http://download.osgeo.org/proj/proj-4.9.3.tar.gz
 Source0: %{name}-%{version}.tar.bz2
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires: gcc-c++ libtool
 
 %description
-proj.4 is a standard UNIX filter function which converts geographic longitude and latitude coordinates into cartesian coordinates (and vice versa), and it is a C API for software developers to include coordinate transformation in their own software.
+proj.4 is a standard UNIX filter function which converts geographic longitude
+and latitude coordinates into cartesian coordinates (and vice versa), and it is
+a C API for software developers to include coordinate transformation in their
+own software.
 
 %package devel
 Summary: proj.4 development headers and static library
@@ -21,7 +26,8 @@ Group: Development/Libraries
 Requires: %{name} = %{version}
 
 %description devel
-proj.4 is a standard UNIX filter function which converts geographic coordinates. Development package
+proj.4 is a standard UNIX filter function which converts geographic
+coordinates. Development package
 
 %package tools
 Summary: proj.4 tools
@@ -29,7 +35,8 @@ Group: Libraries/Databases
 Requires: %{name} = %{version}
 
 %description tools
-proj.4 is a standard UNIX filter function which converts geographic coordinates. Tools package
+proj.4 is a standard UNIX filter function which converts geographic
+coordinates. Tools package
 
 %prep
 
@@ -37,35 +44,27 @@ proj.4 is a standard UNIX filter function which converts geographic coordinates.
 
 %build
 %{__make} clean || true
-./autogen.sh
 
 CFLAGS="$CFLAGS -fPIC"
 CXXFLAGS="$CXXFLAGS -fPIC"
-%configure 
+%reconfigure --enable-static --enable-shared
 
-%{__make} %{?_smp_mflags}
+%{make_build}
 
 %install
 %{__make} install DESTDIR=%{buildroot}
 %{__rm} -rf %{buildroot}%{_libdir}/libproj.la ||:
-
-%clean
-%{__rm} -rf %{buildroot}
-
-%pre
 
 %post -n proj -p /sbin/ldconfig
 
 %postun -n proj -p /sbin/ldconfig
 
 %files
-%defattr(-, root, root, 0755)
 %{_libdir}/libproj.so.12
 %{_libdir}/libproj.so.12.0.0
 %{_datarootdir}/proj
 
 %files devel
-%defattr(-, root, root, 0755)
 %{_libdir}/libproj.so
 %{_includedir}/geodesic.h
 %{_includedir}/org_proj4_PJ.h
@@ -76,7 +75,6 @@ CXXFLAGS="$CXXFLAGS -fPIC"
 %{_libdir}/pkgconfig/proj.pc
 
 %files tools
-%defattr(-, root, root, 0755)
 %{_bindir}/cs2cs
 %{_bindir}/geod
 %{_bindir}/invgeod
