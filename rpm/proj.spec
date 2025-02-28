@@ -46,8 +46,8 @@ CXXFLAGS="$CXXFLAGS -fPIC"
 %{__make} %{?_smp_mflags}
 
 %install
-%{__rm} -rf %{buildroot}
 %{__make} install DESTDIR=%{buildroot}
+%{__rm} -rf %{buildroot}%{_libdir}/libproj.la ||:
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -60,20 +60,19 @@ CXXFLAGS="$CXXFLAGS -fPIC"
 
 %files
 %defattr(-, root, root, 0755)
-%{_libdir}/libproj.so
 %{_libdir}/libproj.so.12
 %{_libdir}/libproj.so.12.0.0
 %{_datarootdir}/proj
 
 %files devel
 %defattr(-, root, root, 0755)
+%{_libdir}/libproj.so
 %{_includedir}/geodesic.h
 %{_includedir}/org_proj4_PJ.h
 %{_includedir}/org_proj4_Projections.h
 %{_includedir}/proj_api.h
 %{_includedir}/projects.h
 %{_libdir}/libproj.a
-%{_libdir}/libproj.la
 %{_libdir}/pkgconfig/proj.pc
 
 %files tools
