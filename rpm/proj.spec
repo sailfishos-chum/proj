@@ -54,6 +54,7 @@ CXXFLAGS="$CXXFLAGS -fPIC"
 %install
 %{__make} install DESTDIR=%{buildroot}
 %{__rm} -rf %{buildroot}%{_libdir}/libproj.la ||:
+%{__rm} -rf %{buildroot}%{_mandir} ||:
 
 %post -n proj -p /sbin/ldconfig
 
@@ -81,11 +82,6 @@ CXXFLAGS="$CXXFLAGS -fPIC"
 %{_bindir}/invproj
 %{_bindir}/nad2bin
 %{_bindir}/proj
-%{_mandir}/man1/cs2cs.1.gz
-%{_mandir}/man1/geod.1.gz
-%{_mandir}/man1/proj.1.gz
-%{_mandir}/man3/geodesic.3.gz
-%{_mandir}/man3/pj_init.3.gz
 
 %changelog
 * Mon Apr 10 2017 rinigus <rinigus.git@gmail.com> - 1.2.76
